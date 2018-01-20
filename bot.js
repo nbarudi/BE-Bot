@@ -7,8 +7,6 @@ const bot = new Discord.Client()
 
 const prefix = botSettings.prefix
 bot.commands = new Discord.Collection()
-bot.logs = require("./logs.json")
-bot.announce = require("./announce.json")
 
 fs.readdir("./cmds", (err, files) =>{
     if (err) console.error(err)
