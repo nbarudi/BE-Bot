@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
 
         message.channel.send(`Banned ${toKick}!`).then(message => message.delete(5000))
         
-        if(message.guild.channels.has(templogs)) {
+        if(message.guild.channels.has(templogs.id)) {
         embed = new Discord.RichEmbed()
         embed.setTitle(`Banning!`)
         embed.addField(`Banned: `, `${message.author} Banned ${toKick} from the server!`)
