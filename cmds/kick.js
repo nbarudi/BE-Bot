@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
         message.guild.member(toKick).kick("You have been removed! If this is a mistake then send a message to the owner of  the discord!")
 
         message.channel.send(`Kicked ${toKick}!`).then(message => message.delete(5000))
-        if(message.guild.channels.has(templogs.id)) {
+        if(message.guild.channels.has(templogs)) {
         embed = new Discord.RichEmbed()
         embed.setTitle(`Kicking!`)
         embed.addField(`Kicked: `, `${message.author} Kicked ${toKick} from the server!`)
