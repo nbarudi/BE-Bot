@@ -1,7 +1,10 @@
-
 const botSettings = require("./botsettings.json")
 const Discord = require("discord.js")
 const fs = require("fs")
+const request = require("request")
+const ytdl = require("ytdl-core")
+const getYouTubeID = require("get-youtube-id")
+const fetchVideoInfo = require("youtube-info")
 
 const bot = new Discord.Client()
 
