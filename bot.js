@@ -62,18 +62,24 @@ bot.on("message", async message =>{
         skipReq: 0,
         skippers: []
       }
+      let messageArray = message.content.split(" ")
+      let command = messageArray[0]
+      let args = messageArray.slice(1);
+
+      if(!message.content.startsWith(prefix)) return;
+
+      let cmd = bot.commands.get(command.slice(prefix.length))
+      if(cmd) cmd.run(bot, message, args)
     } else {
-      continue;
+      let messageArray = message.content.split(" ")
+      let command = messageArray[0]
+      let args = messageArray.slice(1);
+
+      if(!message.content.startsWith(prefix)) return;
+
+      let cmd = bot.commands.get(command.slice(prefix.length))
+      if(cmd) cmd.run(bot, message, args)
     }
-
-    let messageArray = message.content.split(" ")
-    let command = messageArray[0]
-    let args = messageArray.slice(1);
-
-    if(!message.content.startsWith(prefix)) return;
-
-    let cmd = bot.commands.get(command.slice(prefix.length))
-    if(cmd) cmd.run(bot, message, args)
 })
 
 bot.login(botSettings.token)
