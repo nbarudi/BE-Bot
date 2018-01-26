@@ -79,6 +79,7 @@ module.exports.run = async (bot, message, args) => {
       fetchVideoInfo(id, function (err, videoInfo){
         if (err) throw new Error(err)
         message.reply("Added to queue: **" + videoInfo.title + "**")
+        bot.queuenames.push(videoInfo.title)
       })
     })
   } else {
