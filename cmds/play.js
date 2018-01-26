@@ -74,7 +74,17 @@ module.exports.run = async (bot, message, args) => {
     })
   }
 }
-
+  if (bot.guilds[message.guild.id]){
+      guilds[message.guild.id] = {
+        queue: [],
+        queuenames: [],
+        isPlaying: false,
+        dispatcher: null,
+        voiceChannel: null,
+        skipReq: 0,
+        skippers: []
+      }
+  } else {
   if (bot.guilds[message.guild.id].queue.length > 0 || bot.guilds[message.guild.id].isPlaying) {
     getID(args, function(id) {
       add_to_queue(id, message)
@@ -97,6 +107,7 @@ module.exports.run = async (bot, message, args) => {
   }
 
 
+}
 }
 
 module.exports.help = {

@@ -52,35 +52,42 @@ bot.on("ready", () =>{
 bot.on("message", async message =>{
     if(message.author.bot) return
     if(message.channel.type === "dm") return;
+    // if(guilds[message.guild.id]){
+    //   let messageArray = message.content.split(" ")
+    //   let command = messageArray[0]
+    //   let args = messageArray.slice(1);
+    //
+    //   if(!message.content.startsWith(prefix)) return;
+    //
+    //   let cmd = bot.commands.get(command.slice(prefix.length))
+    //   if(cmd) cmd.run(bot, message, args)
+    // } else {
+    //   guilds[message.guild.id] = {
+    //     queue: [],
+    //     queuenames: [],
+    //     isPlaying: false,
+    //     dispatcher: null,
+    //     voiceChannel: null,
+    //     skipReq: 0,
+    //     skippers: []
+    //   }
+    //   let messageArray = message.content.split(" ")
+    //   let command = messageArray[0]
+    //   let args = messageArray.slice(1);
+    //
+    //   if(!message.content.startsWith(prefix)) return;
+    //
+    //   let cmd = bot.commands.get(command.slice(prefix.length))
+    //   if(cmd) cmd.run(bot, message, args)
+    // }
+    let messageArray = message.content.split(" ")
+    let command = messageArray[0]
+    let args = messageArray.slice(1);
 
-    if(guilds[message.guild.id]){
-      let messageArray = message.content.split(" ")
-      let command = messageArray[0]
-      let args = messageArray.slice(1);
+    if(!message.content.startsWith(prefix)) return;
 
-      if(!message.content.startsWith(prefix)) return;
-
-      let cmd = bot.commands.get(command.slice(prefix.length))
-      if(cmd) cmd.run(bot, message, args)
-    } else {
-      guilds[message.guild.id] = {
-        queue: [],
-        queuenames: [],
-        isPlaying: false,
-        dispatcher: null,
-        voiceChannel: null,
-        skipReq: 0,
-        skippers: []
-      }
-      let messageArray = message.content.split(" ")
-      let command = messageArray[0]
-      let args = messageArray.slice(1);
-
-      if(!message.content.startsWith(prefix)) return;
-
-      let cmd = bot.commands.get(command.slice(prefix.length))
-      if(cmd) cmd.run(bot, message, args)
-    }
+    let cmd = bot.commands.get(command.slice(prefix.length))
+    if(cmd) cmd.run(bot, message, args)
 })
 
 bot.login(botSettings.token)
