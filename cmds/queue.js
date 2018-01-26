@@ -7,12 +7,10 @@ for (var songName in bot.queuenames){
   for (var i = 0; i < bot.queuenames.length; i++) {
     var temp = (i + 1) + " : " + bot.queuenames[i] + (i === 0 ? "**(Current Songs)**" : "") + "\n"
     if ((mess + temp) <= 2000 - 3) {
-      mess += temp
+      mess = temp
 
     }else {
-      mess += "```"
       message.channel.send(mess)
-      mess = "```"
     }
   }
 }
