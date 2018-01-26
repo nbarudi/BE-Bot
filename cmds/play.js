@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
   var skippers = []
 
   function isYoutube(str) {
-    return str.toLowerCase().indexOf("youtube.com") > -1
+    return str.indexOf("youtube.com") > -1
   }
 
   function search_video(querry, callback) {
