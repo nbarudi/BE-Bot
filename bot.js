@@ -9,6 +9,7 @@ const fetchVideoInfo = require("youtube-info")
 const bot = new Discord.Client()
 
 const prefix = botSettings.prefix
+
 bot.guilds = {}
 bot.yt_api_key = "AIzaSyBzb-OKZqfwHkk_ci-oRME4U50QTxXkj1Y"
 bot.commands = new Discord.Collection()
@@ -52,16 +53,7 @@ bot.on("message", async message =>{
     if(message.author.bot) return
     if(message.channel.type === "dm") return;
 
-    if(!guilds[message.guild.id]){
-      guilds[message.guild.id] = {
-        queue: [],
-        queuenames: [],
-        isPlaying: false,
-        dispatcher: null,
-        voiceChannel: null,
-        skipReq: 0,
-        skippers: []
-      }
+    if(guilds[message.guild.id]){
       let messageArray = message.content.split(" ")
       let command = messageArray[0]
       let args = messageArray.slice(1);
@@ -71,6 +63,15 @@ bot.on("message", async message =>{
       let cmd = bot.commands.get(command.slice(prefix.length))
       if(cmd) cmd.run(bot, message, args)
     } else {
+      guilds[message.guild.id] = {
+        queue: [],
+        queuenames: [],
+        isPlaying: false,
+        dispatcher: null,
+        voiceChannel: null,
+        skipReq: 0,
+        skippers: []
+      }
       let messageArray = message.content.split(" ")
       let command = messageArray[0]
       let args = messageArray.slice(1);
