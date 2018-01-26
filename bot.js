@@ -53,6 +53,18 @@ bot.on("message", async message =>{
     if(message.author.bot) return
     if(message.channel.type === "dm") return;
 
+    if(bot.newguilds[message.guild.id]){
+      bot.newguilds[message.guild.id]{
+        queue: [],
+        queuenames: [],
+        isPlaying: false,
+        dispatcher: null,
+        voiceChannel: null,
+        skipReq: 0,
+        skippers: []
+      }
+    }
+
     let messageArray = message.content.split(" ")
     let command = messageArray[0]
     let args = messageArray.slice(1);
