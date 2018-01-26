@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) => {
   }
 
   function skip_song(message){
-    bot.disbatcher.end()
+    bot.dispatcher.end()
   }
 
   if(bot.skippers.indexOf(message.author.id) === -1) {
