@@ -14,8 +14,7 @@ for (var songName in bot.queuenames){
     }
   }
 }
-mess += "```"
-message.channel.send(mess)
+//message.channel.send(mess)
 
 }
 
