@@ -29,11 +29,11 @@ module.exports.run = async (bot, message, args) => {
     }
   }
 
-  function add_to_queue(strID){
+  function add_to_queue(strID, mess){
     if (isYoutube(strID)) {
-      bot.queue.push(getYouTubeID(strID))
+      bot.guilds[message.guild.id].queue.push(getYouTubeID(strID))
     }else {
-      bot.queue.push(strID)
+      bot.guilds[message.guild.id].queue.push(strID)
     }
   }
 
@@ -41,30 +41,32 @@ module.exports.run = async (bot, message, args) => {
     if (message.member.voiceChannel == null) {
       message.reply(" You must be in a voice channel to use this command!")
     } else {
-    bot.voiceChannel = message.member.voiceChannel
+    bot.guilds[message.guild.id].voiceChannel = message.member.voiceChannel
 
 
 
-    bot.voiceChannel.join().then(function (connection){
+    bot.guilds[message.guild.id].voiceChannel.join().then(function (connection){
       stream = ytdl("https://www.youtube.com/watch?v=" + id, {
         filter: 'audioonly'
       })
-      bot.skipReq = 0
-      bot.skippers = []
+      bot.guilds[message.guild.id].skipReq = 0
+      bot.guilds[message.guild.id].skippers = []
 
-      bot.dispatcher = connection.playStream(stream)
-      bot.dispatcher.on(`end`, function(){
-        bot.skipReq = 0
-        bot.skippers = []
-        bot.queue.shift()
-        bot.queuenames.shift()
-        if (bot.queue.length === 0){
-          bot.queue = []
-          bot.queuenames = []
-          bot.isPlaying = false
+      bot.guilds[message.guild.id].dispatcher = connection.playStream(stream)
+      bot.guilds[message.guild.id].dispatcher.on(`end`, function(){
+        bot.guilds[message.guild.id].skipReq = 0
+        bot.guilds[message.guild.id].skippers = []
+        bot.guilds[message.guild.id].queue.shift()
+        bot.guilds[message.guild.id].queuenames.shift()
+        if (bot.guilds[message.guild.id].queue.length === 0){
+          bot.guilds[message.guild.id].queue = []
+          bot.guilds[message.guild.id].queuenames = []
+          bot.guilds[message.guild.id].isPlaying = false
+          message.channel.send(" Songs now ended!")
+          bot.guilds[message.guild.id].voiceChannel.leave()
         } else {
           setTimeout(function () {
-              playMusic(bot.queue[0],message)
+              playMusic(bot.guilds[message.guild.id].queue[0],message)
           }, 500)
 
         }
@@ -73,19 +75,19 @@ module.exports.run = async (bot, message, args) => {
   }
 }
 
-  if (bot.queue.length > 0 || bot.isPlaying) {
+  if (bot.guilds[message.guild.id].queue.length > 0 || bot.guilds[message.guild.id].isPlaying) {
     getID(args, function(id) {
-      add_to_queue(id)
+      add_to_queue(id, message)
       fetchVideoInfo(id, function (err, videoInfo){
         if (err) throw new Error(err)
         message.reply("Added to queue: **" + videoInfo.title + "**")
-        bot.queuenames.push(videoInfo.title)
+        bot.guilds[message.guild.id].queuenames.push(videoInfo.title)
       })
     })
   } else {
-    bot.isPlaying = true;
+    bot.guilds[message.guild.id].isPlaying = true;
     getID(args, function (id) {
-      bot.queue.push("placeholder")
+      bot.guilds[message.guild.id].queue.push("placeholder")
       playMusic(id, message)
       fetchVideoInfo(id, function (err, videoInfo){
         if (err) throw new Error(err)
