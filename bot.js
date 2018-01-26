@@ -10,7 +10,7 @@ const bot = new Discord.Client()
 
 const prefix = botSettings.prefix
 
-bot.guilds = {};
+bot.newguilds = {};
 bot.yt_api_key = "AIzaSyBzb-OKZqfwHkk_ci-oRME4U50QTxXkj1Y"
 bot.commands = new Discord.Collection()
 bot.queue = []

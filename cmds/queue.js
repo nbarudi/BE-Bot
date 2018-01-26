@@ -2,7 +2,7 @@ const Discord = module.require("discord.js")
 
 module.exports.run = async (bot, message, args) => {
 
-  queueNames = bot.guilds[message.guild.id].queuenames
+  queueNames = bot.newguilds[message.guild.id].queuenames
 
   var message2 = "```"
     for (var i = 0; i < queueNames.length; i++){
