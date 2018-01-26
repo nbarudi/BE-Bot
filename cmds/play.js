@@ -5,13 +5,6 @@ const ytdl = require("ytdl-core")
 const getYouTubeID = require("get-youtube-id")
 
 module.exports.run = async (bot, message, args) => {
-  var yt_api_key = "AIzaSyBzb-OKZqfwHkk_ci-oRME4U50QTxXkj1Y"
-  var queue = []
-  var isPlaying = false
-  var dispatcher = null
-  var voiceChannel = null;
-  var skipReq = 0
-  var skippers = []
 
   function isYoutube(str) {
     return str.indexOf("youtube.com") > -1
@@ -43,7 +36,12 @@ module.exports.run = async (bot, message, args) => {
   }
 
   function playMusic(id, message){
+    if (message.member.voiceChannel == null) {
+      message.reply(" You must be in a voice channel to use this command!")
+    } else {
     bot.voiceChannel = message.member.voiceChannel
+
+
 
     bot.voiceChannel.join().then(function (connection){
       stream = ytdl("https://www.youtube.com/watch?v=" + id, {
@@ -53,8 +51,25 @@ module.exports.run = async (bot, message, args) => {
       bot.skippers = []
 
       bot.dispatcher = connection.playStream(stream)
+      bot.dispatcher.on(`end`, function(){
+        bot.skipReq = 0
+        bot.skippers = []
+        bot.queue.shift()
+        bot.queuenames.shift()
+        if (bot.queue.length === 0){
+          bot.queue = []
+          bot.queuenames = []
+          bot.isPlaying = false
+        } else {
+          setTimeout(function () {
+              playMusic(bot.queue[0],message)
+          }, 500)
+
+        }
+      })
     })
   }
+}
 
   if (bot.queue.length > 0 || bot.isPlaying) {
     getID(args, function(id) {
