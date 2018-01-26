@@ -62,6 +62,8 @@ bot.on("message", async message =>{
         skipReq: 0,
         skippers: []
       }
+    } else {
+      continue;
     }
 
     let messageArray = message.content.split(" ")
