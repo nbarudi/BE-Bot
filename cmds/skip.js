@@ -4,10 +4,12 @@ const ytdl = require("ytdl-core")
 module.exports.run = async (bot, message, args) => {
 
   function playMusic(id, message){
+
+    if (message.member.voiceChannel == null) {
+      message.reply(" You must be in a voice channel to use this command!")
+    }
+
     bot.voiceChannel = message.member.voiceChannel
-
-
-
     bot.voiceChannel.join().then(function (connection){
       stream = ytdl("https://www.youtube.com/watch?v=" + id, {
         filter: 'audioonly'

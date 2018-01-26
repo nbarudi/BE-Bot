@@ -13,8 +13,10 @@ module.exports.run = async (bot, message, args) => {
   function search_video(querry, callback) {
     request("https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(querry) + "&key=" + bot.yt_api_key, function(error, response, body) {
       var json = JSON.parse(body)
+      if (!json.items[0]) callback("pyXhsTTD0Tk")
+      else{
       callback(json.items[0].id.videoId)
-    })
+    }})
   }
 
   function getID(str, cb){
