@@ -56,7 +56,7 @@ bot.on("message", async message =>{
         voiceChannel: null,
         skipReq: 0,
         skippers: []
-      }
+      };
     }
 
     let messageArray = message.content.split(" ")
