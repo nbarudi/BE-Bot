@@ -11,15 +11,9 @@ const bot = new Discord.Client()
 const prefix = botSettings.prefix
 
 bot.newguilds = {};
+
 bot.yt_api_key = "AIzaSyBzb-OKZqfwHkk_ci-oRME4U50QTxXkj1Y"
 bot.commands = new Discord.Collection()
-bot.queue = []
-bot.queuenames = []
-bot.isPlaying = false
-bot.dispatcher = null
-bot.voiceChannel = null;
-bot.skipReq = 0
-bot.skippers = []
 
 
 fs.readdir("./cmds", (err, files) =>{
