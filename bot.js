@@ -54,7 +54,7 @@ bot.on("message", async message =>{
     if(message.channel.type === "dm") return;
 
     if(bot.newguilds[message.guild.id]){
-      bot.newguilds[message.guild.id]{
+      bot.newguilds[message.guild.id] = {
         queue: [],
         queuenames: [],
         isPlaying: false,
