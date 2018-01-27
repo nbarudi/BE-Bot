@@ -74,6 +74,13 @@ module.exports.run = async (bot, message, args) => {
     })
   }
 }
+
+for (i = 0; i < bot.newguilds[message.guild.id].musicbans; i++){
+  if (bot.newguilds[message.guild.id].musicbans[i] == message.author.username){
+    message.reply(" You are banned from using music commands!")
+    return;
+  }
+}
   if (bot.newguilds[message.guild.id].queue.length > 0 || bot.newguilds[message.guild.id].isPlaying) {
     getID(args, function(id) {
       add_to_queue(id, message)
@@ -94,8 +101,6 @@ module.exports.run = async (bot, message, args) => {
       })
     })
   }
-
-
 }
 
 module.exports.help = {
