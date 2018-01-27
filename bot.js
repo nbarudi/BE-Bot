@@ -15,6 +15,13 @@ bot.newguilds = {};
 bot.yt_api_key = "AIzaSyBzb-OKZqfwHkk_ci-oRME4U50QTxXkj1Y"
 bot.commands = new Discord.Collection()
 
+bot.queue = []
+bot.queuenames = []
+bot.skipReq = 0
+bot.isPlaying = false
+bot.skippers = []
+bot.dispatcher = null
+bot.voiceChannel = null
 
 fs.readdir("./cmds", (err, files) =>{
     if (err) console.error(err)
@@ -47,7 +54,7 @@ bot.on("message", async message =>{
     if(message.author.bot) return
     if(message.channel.type === "dm") return;
 
-    if(bot.newguilds[message.guild.id]){
+    if(!bot.newguilds[message.guild.id]) {
       bot.newguilds[message.guild.id] = {
         queue: [],
         queuenames: [],
