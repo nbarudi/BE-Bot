@@ -38,10 +38,10 @@ module.exports.run = async (bot, message, args) => {
   }
 
   function playMusic(id, message){
-    if (!message.member.voiceChannel) {
+    if (message.member.voiceChannel === null) {
       message.reply(" You must be in a voice channel to use this command!")
-      return
       bot.newguilds[message.guild.id].dispatcher.end()
+      return
     } else {
     bot.newguilds[message.guild.id].voiceChannel = message.member.voiceChannel
 
