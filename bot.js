@@ -63,7 +63,6 @@ bot.on("message", async message =>{
         voiceChannel: null,
         skipReq: 0,
         skippers: [],
-        musicbans: []
       };
     }
 
