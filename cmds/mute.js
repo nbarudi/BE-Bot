@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
                 console.log(e.stack)
             }
         }
-        if(toMute.roles.has(role.id)) return message.send("User is already muted!")
+        if(toMute.roles.has(role)) return message.send("User is already muted!")
 
         toMute.addRole(role)
 
