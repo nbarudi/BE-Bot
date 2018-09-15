@@ -1,5 +1,7 @@
 const Discord = module.require("discord.js")
 
+
+
 module.exports.run = async (bot, message, args) => {
     var hours = (new Date()).getHours();
     let adminRole = message.guild.roles.find("name", "Moderator")
@@ -30,7 +32,16 @@ module.exports.run = async (bot, message, args) => {
             }
         }
         if(toMute.roles.has(role)) return message.send("User is already muted!")
-
+        const rolesy = Array.from(toMute.roles.values())
+        for(i = 0 ; rolesy ; i++){
+            toMute.removeRole(rolesy[i])
+            if(!bot.rolelist[toMute.name]){
+                bot.rolelist[toMute.name] = {
+                    rolez: []
+                };
+            }
+            bot.rolelist[toMute.name].rolez.push(rolesy[i])
+        }
         toMute.addRole(role)
 
         message.channel.send(`User: ${toMute} has been muted! :speak_no_evil:`)
